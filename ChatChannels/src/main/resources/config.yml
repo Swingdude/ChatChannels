@@ -1,0 +1,70 @@
+colors:
+  PrimaryChannelSwitch: YELLOW
+  SecondaryChannelSwitch: AQUA
+  error: RED
+local_chat_range: 250
+default_channel: red
+#Oh, come on, it's just a prefix!
+give_CCDev_prefix: true
+#This length excludes formatting. The nickname "&lNick" would return 4, not 6.
+nick-max-length: 15
+#This part is automatically edited by the in-game commands. Modify at your own risk.
+channels:
+- blue
+- red
+- local
+- global
+invite-only-channels:
+- admin
+invitees:
+  admin: []
+passcodes:
+  red: n/a
+  blue: n/a
+  global: n/a
+  local: n/a
+  admin: n/a
+channelcolor:
+  red: RED
+  blue: BLUE
+  local: WHITE
+  global: WHITE
+  admin: RED
+cowner:
+  red: no_owner
+  blue: no_owner
+  local: no_owner
+  global: no_owner
+  admin: no_owner
+ctrusted:
+  red: false
+  blue: false
+  local: false
+  global: false
+  admin: false
+cban:
+  red: []
+  blue: []
+  admin: []
+cflags:
+  red:
+    join-messages: none
+    tune-messages: none
+    allow-tune: all
+  blue:
+    join-messages: none
+    tune-messages: none
+    allow-tune: all
+  global:
+    join-messages: none
+    tune-messages: none
+    allow-tune: none
+  local:
+    join-messages: none
+    tune-messages: none
+    allow-tune: none
+  admin:
+    join-messages: none
+    tune-messages: none
+    allow-tune: none
+#The channel editing section ends here. 

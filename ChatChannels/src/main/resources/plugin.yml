@@ -1,0 +1,115 @@
+name: ChatChannels
+main: com.gmail.nlspector.chatchannels.ChatChannel
+version: 0.4.0-BETA
+description: A plugin to manage chat!
+commands:
+  channel:
+    description: Switches your channel
+    permission: chatchannels.channels
+    permission-message: You don't have permission to switch channels!
+    usage: /channel <channel>
+  cnick:
+    description: Sets your channel nickname
+    permission: chatchannels.nick
+    permission-message: You can't change your nickname!
+    usage: /cnick <nickname> [optional:playername]
+  cg:
+    description: Sends a message to global chat
+    permission: chatchannels.g
+    permission-message: You don't have permission to send a global message!
+    usage: /cg <message>
+  newchannel:
+    description: Makes a new channel
+    permission: chatchannels.create
+    permission-message: You can't make a new channel!
+    usage: /newchannel <channelname> [optional:passcode]
+  cedit:
+    description: Edits a channel
+    permission: chatchannels.edit
+    permission-message: You can't edit channels!
+    usage: /cedit <channel> <passcode/color> <color for color/old passcode for passcode> <nothing for color/new passcode for passcode>
+  clist:
+    description: Lists all channels
+    permission: chatchannels.listchannels
+    permission-message: You can't list channels!
+    usage: /clist
+  cplayers:
+    description: Lists people in your channel
+    permission: chatchannels.listplayers
+    permission-message: You can't list people in your channel!
+    usage: /cplayers
+  cspy:
+    description: Enables/disables spy mode
+    permission: chatchannels.spy
+    permission-message: You can't enter spy mode!
+    usage: /cspy
+  cmute:
+    description: Mutes/unmutes players
+    permission: chatchannels.mute
+    permission-message: You can't mute people!
+    usage: /cmute <playername>
+  crealname:
+    description: Finds out the real name of a player
+    permission: chatchannels.realname
+    permission-message: You can't find out people's real names!
+    usage: /crealname <player>
+  cignore:
+    description: Ignores/unignores a player
+    permission: chatchannels.ignore
+    permission-message: You can't ignore people!
+    usage: /cignore <player>
+  ctrust:
+    description: Trusts/untrusts a player to edit your current channel
+    permission: chatchannels.trust
+    permission-message: You can't trust people!
+    usage: /ctrust <player>
+  cowner:
+    description: Finds the owner of your current channel
+    permission: chatchannels.checkowner
+    permission-message: You can't check the owner!
+    usage: /cowner
+  cdel:
+    description: Deletes a channel from the channel list.
+    permission: chatchannels.delete
+    permission-message: You can't delete a channel!
+    usage: /cdel <channel>
+  cban:
+    description: Bans a person from the your current channel
+    permission: chatchannels.ban
+    permission-message: You can't ban a person from a channel!
+    usage: /cban <player>
+  cpardon:
+    description: Unbans a person from the your current channel
+    permission: chatchannels.ban
+    permission-message: You can't pardon a person from a channel!
+    usage: /cpardon <player>
+  ctune:
+    description: Tunes into a channel without changing the current channel.
+    permission: chatchannels.tune
+    permission-message: You can't tune into channel!
+    usage: /ctune <channel> [passcode]
+  csearch:
+    description: Searches channels based on set parameters.
+    permission: chatchannels.search
+    permission-message: You can't search channels!
+    usage: /csearch <flags>
+  crestore:
+    description: Adds a channel to the channel list without overwriting properties
+    permission: chatchannels.restore
+    permission-message: You can't restore a channel!
+    usage: /crestore <channelname> 
+  cpurge:
+    description: Deletes a channel and all of its properties. Cannot be undone.
+    permission: chatchannels.purge
+    permission-message: You can't purge a channel!
+    usage: /cpurge <channelname> 
+  creload:
+    description: Reloads ChatChannels config files.
+    permission: chatchannels.reload
+    permission-message: You can't reload ChatChannels!
+    usage: /creload
+  cinvite:
+    description: Invites/uninvites a player to your invite-only channel
+    permission: chatchannels.invite
+    permission-message: You can't invite people!
+    usage: /cinvite <player>
