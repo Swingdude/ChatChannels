@@ -58,7 +58,7 @@ public class ChatChannel extends JavaPlugin implements Listener {
 		saveDefaultCurrentChannel();
 		setupChat();
 		boolean errorsExist = false;
-		//throw a hissy fit if the config is messed up
+		//Notify the console user if the config is messed up.
 		if(!getConfig().getStringList("channels").contains(getConfig().getString("default_channel"))) {
 			errorsExist = true;
 			getLogger().severe("Error in the config file - the default channel is set to a channel that doesn't exist! Are all the letters lowercase?");
