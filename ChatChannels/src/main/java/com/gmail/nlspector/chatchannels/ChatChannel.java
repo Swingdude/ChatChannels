@@ -152,6 +152,8 @@ public class ChatChannel extends JavaPlugin implements Listener {
 	}
 	//end custom config spam
 	
+	//This function... is very long.
+	//And uncommented. I'll be working on that.
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		if(cmd.getName().equalsIgnoreCase("channel")){
