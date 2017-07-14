@@ -448,7 +448,7 @@ public class ChatChannel extends JavaPlugin implements Listener {
 				return true;
 			}
 			//in English - if the owner of the current channel isn't the player sending the command nor has permission to override... 
-			if(!(getConfig().getString("cowner." + selchannel).equals(((Player) sender).getUniqueId().toString()) || sender.hasPermission("chatchannels.override.delete"))) {
+			if(!(getConfig().getString("cowner." + selchannel).equals(((Player) sender).getUniqueId().toString()) || sender.hasPermission("chatchannels.delete.override"))) {
 				sender.sendMessage(ChatColor.valueOf(errorColor) + "You are not allowed to delete this channel!");
 				return true;
 			}
@@ -507,7 +507,7 @@ public class ChatChannel extends JavaPlugin implements Listener {
 				sender.sendMessage(ChatColor.valueOf(errorColor) + "You can't ban someone from the default channel!");
 				return true;
 			}
-			if(!(getConfig().getString("cowner." + selchannel).equals(((Player) sender).getUniqueId().toString()) || isTrusted(selchannel, (Player) sender) || sender.hasPermission("chatchannels.override.ban"))) {
+			if(!(getConfig().getString("cowner." + selchannel).equals(((Player) sender).getUniqueId().toString()) || isTrusted(selchannel, (Player) sender) || sender.hasPermission("chatchannels.ban.override"))) {
 				sender.sendMessage(ChatColor.valueOf(errorColor) + "You are not allowed to ban someone from the channel!");
 				return true;
 			}
@@ -557,7 +557,7 @@ public class ChatChannel extends JavaPlugin implements Listener {
 				sender.sendMessage(ChatColor.valueOf(errorColor) + "You can't pardon someone from the default channel!");
 				return true;
 			}
-			if(!(getConfig().getString("cowner." + selchannel).equals(((Player) sender).getUniqueId().toString()) || isTrusted(selchannel, (Player) sender) || sender.hasPermission("chatchannels.override.ban"))) {
+			if(!(getConfig().getString("cowner." + selchannel).equals(((Player) sender).getUniqueId().toString()) || isTrusted(selchannel, (Player) sender) || sender.hasPermission("chatchannels.ban.override"))) {
 				sender.sendMessage(ChatColor.valueOf(errorColor) + "You are not allowed to pardon someone from this channel!");
 				return true;
 			}
@@ -1134,7 +1134,7 @@ public class ChatChannel extends JavaPlugin implements Listener {
 				return true;
 		}	
 		if(sender instanceof Player) {
-			if(!(getConfig().getString("cowner." + selchannel).equals(((Player) sender).getUniqueId().toString()) || isTrusted(selchannel, (Player) sender) || sender.hasPermission("chatchannels.override.edit"))) {
+			if(!(getConfig().getString("cowner." + selchannel).equals(((Player) sender).getUniqueId().toString()) || isTrusted(selchannel, (Player) sender) || sender.hasPermission("chatchannels.edit.override"))) {
 				sender.sendMessage(ChatColor.valueOf(errorColor) + "You are not allowed to edit that channel!");
 				return true;
 			}
