@@ -769,8 +769,8 @@ public class ChatChannel extends JavaPlugin implements Listener {
 			}
 			String currentChannel = getCurrentChannel().getString(((Player) sender).getUniqueId().toString());
 			//in English - if the owner of the current channel isn't the player sending the command... 
-			if(!getConfig().getString("cowner." + currentChannel).equals(((Player) sender).getUniqueId().toString())) {
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You are not the owner of the channel!");
+			if(!getConfig().getString("cowner." + currentChannel).equals(((Player) sender).getUniqueId().toString()) && !sender.hasPermission("chatchannels.invite.override")) {
+				sender.sendMessage(ChatColor.valueOf(errorColor) + "You do not have permission to invite people to this channel!!");
 				return true;
 			}
 			if(args.length == 0) {
