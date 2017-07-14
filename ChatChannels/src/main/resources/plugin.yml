@@ -1,6 +1,6 @@
 name: ChatChannels
 main: com.gmail.nlspector.chatchannels.ChatChannel
-version: 0.4.0-BETA
+version: 0.5.0-BETA
 description: A plugin to manage chat!
 commands:
   channel:

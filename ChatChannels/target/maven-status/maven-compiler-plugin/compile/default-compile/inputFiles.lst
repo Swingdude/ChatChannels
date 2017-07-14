@@ -1,2 +1,14 @@
-/Users/noahspector/eclipse-workspace/ChatChannels/src/main/java/com/gmail/nlspector/chatchannels/CustomConfig.java
-/Users/noahspector/eclipse-workspace/ChatChannels/src/main/java/com/gmail/nlspector/chatchannels/ChatChannel.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/chatchannels/CustomConfig.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/ChannelTuneCommandExecutor.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/NewChannelCommandExecutor.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/ChannelEditCommandExecutor.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/ChannelDeleteCommandExecutor.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/chatchannels/ChatChannel.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/ChatChannelCommandExecutor.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/NicknameCommandExecutor.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/ChannelInviteCommandExecutor.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/ChannelTrustCommandExecutor.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/ChannelSwitchCommandExecutor.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/ChannelBanCommandExecutor.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/MiscCommandExecutor.java
+/Users/noahspector/git/ChatChannels/src/main/java/com/gmail/nlspector/command/ChannelSearchCommandExecutor.java

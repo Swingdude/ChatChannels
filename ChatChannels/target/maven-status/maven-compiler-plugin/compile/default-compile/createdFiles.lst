@@ -1,0 +1,14 @@
+com/gmail/nlspector/command/ChannelDeleteCommandExecutor.class
+com/gmail/nlspector/command/NicknameCommandExecutor.class
+com/gmail/nlspector/command/ChatChannelCommandExecutor.class
+com/gmail/nlspector/command/ChannelEditCommandExecutor.class
+com/gmail/nlspector/chatchannels/ChatChannel.class
+com/gmail/nlspector/command/ChannelTrustCommandExecutor.class
+com/gmail/nlspector/command/ChannelTuneCommandExecutor.class
+com/gmail/nlspector/command/ChannelBanCommandExecutor.class
+com/gmail/nlspector/command/ChannelSwitchCommandExecutor.class
+com/gmail/nlspector/command/MiscCommandExecutor.class
+com/gmail/nlspector/command/ChannelInviteCommandExecutor.class
+com/gmail/nlspector/command/NewChannelCommandExecutor.class
+com/gmail/nlspector/command/ChannelSearchCommandExecutor.class
+com/gmail/nlspector/chatchannels/CustomConfig.class
