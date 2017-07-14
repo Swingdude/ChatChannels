@@ -15,7 +15,7 @@ commands:
     usage: /cnick <nickname> [optional:playername]
   cg:
     description: Sends a message to global chat
-    permission: chatchannels.g
+    permission: chatchannels.global
     permission-message: You don't have permission to send a global message!
     usage: /cg <message>
   newchannel:
