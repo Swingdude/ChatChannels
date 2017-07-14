@@ -1089,7 +1089,7 @@ public class ChatChannel extends JavaPlugin implements Listener {
 		if(args.length < 1){
 			sender.sendMessage(ChatColor.valueOf(errorColor) + "No nickname defined!");
 			return false;
-		} else if(!(sender instanceof Player) && args.length > 2){
+		} else if(!(sender instanceof Player) && args.length < 2){
 			sender.sendMessage(ChatColor.valueOf(errorColor) + "You can only set your nickname as a player!");
 			return true;
 		} else if(nicknameExists){
