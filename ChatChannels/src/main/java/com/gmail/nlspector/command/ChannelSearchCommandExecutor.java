@@ -12,17 +12,17 @@ import com.gmail.nlspector.chatchannels.ChatChannel;
 
 public class ChannelSearchCommandExecutor extends ChatChannelCommandExecutor implements CommandExecutor{
 
-	public ChannelSearchCommandExecutor(ChatChannel c, String pCS, String sCS, String eC, int nickMaxLen) {
+	public ChannelSearchCommandExecutor(ChatChannel c, ChatColor pCS, ChatColor sCS, ChatColor eC, int nickMaxLen) {
 		super(c, pCS, sCS, eC, nickMaxLen);
 	}
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length < 2 && !args[0].equals("flags")) {
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "You must specify at least one search term!");
+			sender.sendMessage(error + "You must specify at least one search term!");
 			return false;
 		} else if(args[0].equals("flags")) {
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "The valid flags are: -o to search by owner; -s to search the starting characters; -n to search the entire channel name; and -u to search by user.");
+			sender.sendMessage(error + "The valid flags are: -o to search by owner; -s to search the starting characters; -n to search the entire channel name; and -u to search by user.");
 		}
 		List<String> argList = Arrays.asList(args);
 		List<String> possChannels = getConfig().getStringList("channels");
@@ -64,10 +64,10 @@ public class ChannelSearchCommandExecutor extends ChatChannelCommandExecutor imp
 			}
 		}
 		if(possChannels.isEmpty()) {
-			sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "Your search turned up" + ChatColor.valueOf(primaryChannelSwitch) + " no results" + ChatColor.valueOf(secondaryChannelSwitch) + "!");
+			sender.sendMessage(secondary + "Your search turned up" + primary + " no results" + secondary + "!");
 			return true;
 		}
-		sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "Your search turned up the following results: " + ChatColor.valueOf(primaryChannelSwitch) + possChannels.toString().substring(1, possChannels.toString().length() - 1));
+		sender.sendMessage(secondary + "Your search turned up the following results: " + primary + possChannels.toString().substring(1, possChannels.toString().length() - 1));
 		return true;
 	}
 

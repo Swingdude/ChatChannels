@@ -13,7 +13,7 @@ import com.gmail.nlspector.chatchannels.ChatChannel;
 
 public class ChannelTrustCommandExecutor extends ChatChannelCommandExecutor implements CommandExecutor{
 
-	public ChannelTrustCommandExecutor(ChatChannel c, String pCS, String sCS, String eC, int nickMaxLen) {
+	public ChannelTrustCommandExecutor(ChatChannel c, ChatColor pCS, ChatColor sCS, ChatColor eC, int nickMaxLen) {
 		super(c, pCS, sCS, eC, nickMaxLen);
 	}
 	
@@ -22,17 +22,17 @@ public class ChannelTrustCommandExecutor extends ChatChannelCommandExecutor impl
 
 		//handle miscreants
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "You are not a player in a channel!");
+			sender.sendMessage(error + "You are not a player in a channel!");
 			return true;
 		}
 		String currentChannel = getCurrentChannel().getString(((Player) sender).getUniqueId().toString());
 		//in English - if the owner of the current channel isn't the player sending the command... 
 		if(!getConfig().getString("cowner." + currentChannel).equals(((Player) sender).getUniqueId().toString())) {
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "You are not the owner of the channel!");
+			sender.sendMessage(error + "You are not the owner of the channel!");
 			return true;
 		}
 		if(args.length == 0) {
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "You must specify which player to trust!");
+			sender.sendMessage(error + "You must specify which player to trust!");
 			return true;
 		}
 		//now to trust people
@@ -41,12 +41,12 @@ public class ChannelTrustCommandExecutor extends ChatChannelCommandExecutor impl
 			if(player.getName().equals(args[0])) {
 				if(s.contains(player.getUniqueId().toString())) {
 					s.remove(player.getUniqueId().toString());
-					sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "You have " + ChatColor.valueOf(primaryChannelSwitch) + "untrusted " + args[0] + ".");
-					player.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "You have been " + ChatColor.valueOf(primaryChannelSwitch) + "untrusted on " + currentChannel + ".");
+					sender.sendMessage(secondary + "You have " + primary + "untrusted " + args[0] + ".");
+					player.sendMessage(secondary + "You have been " + primary + "untrusted on " + currentChannel + ".");
 				} else {
 					s.add(player.getUniqueId().toString());
-					sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "You have " + ChatColor.valueOf(primaryChannelSwitch) + "trusted " + args[0]);
-					player.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "You have been " + ChatColor.valueOf(primaryChannelSwitch) + "trusted on " + currentChannel + ".");
+					sender.sendMessage(secondary + "You have " + primary + "trusted " + args[0]);
+					player.sendMessage(secondary + "You have been " + primary + "trusted on " + currentChannel + ".");
 
 				}
 				getConfig().set("ctrusted." + currentChannel, s);

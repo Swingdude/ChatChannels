@@ -16,7 +16,7 @@ import net.milkbowl.vault.chat.Chat;
 
 public class MiscCommandExecutor extends ChatChannelCommandExecutor implements CommandExecutor{
 
-	public MiscCommandExecutor(ChatChannel c, String pCS, String sCS, String eC, int nickMaxLen) {
+	public MiscCommandExecutor(ChatChannel c, ChatColor pCS, ChatColor sCS, ChatColor eC, int nickMaxLen) {
 		super(c, pCS, sCS, eC, nickMaxLen);
 	}
 	
@@ -32,9 +32,9 @@ public class MiscCommandExecutor extends ChatChannelCommandExecutor implements C
 				senderName = sender.getName();
 			}
 			if(args.length < 1){
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You need to type a message!");
+				sender.sendMessage(error + "You need to type a message!");
 			} else if(plugin.muteMap.get(senderUUID) == true){
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You are muted!");
+				sender.sendMessage(error + "You are muted!");
 				return true;
 			} else {
 				StringBuilder sb = new StringBuilder();
@@ -70,12 +70,12 @@ public class MiscCommandExecutor extends ChatChannelCommandExecutor implements C
 			return true;
 		} else if(cmd.getName().equals("clist")){
 			String channellist = getConfig().getStringList("channels").toString();
-			sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "The available channels are: " + ChatColor.valueOf(primaryChannelSwitch) + channellist.substring(1, channellist.length()-1));
+			sender.sendMessage(secondary + "The available channels are: " + primary + channellist.substring(1, channellist.length()-1));
 			return true;
 		} else if(cmd.getName().equals("cplayers")){
 			String senderCurrentChannel = getCurrentChannel().getString(((Player) sender).getUniqueId().toString());
 			if(senderCurrentChannel.equals("noChannel")){
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You need to be in a channel to list the people in it.");
+				sender.sendMessage(error + "You need to be in a channel to list the people in it.");
 				return false;
 			}
 			StringBuilder cplayerlist = new StringBuilder();
@@ -88,10 +88,10 @@ public class MiscCommandExecutor extends ChatChannelCommandExecutor implements C
 					}
 				}
 				cplayerlist.delete(cplayerlist.length() - 2, cplayerlist.length() - 1);
-				sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "The players in your channel are: " + ChatColor.valueOf(primaryChannelSwitch) + cplayerlist.toString());
+				sender.sendMessage(secondary + "The players in your channel are: " + primary + cplayerlist.toString());
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You can't list players in your channel if you are not a player yourself!");
+				sender.sendMessage(error + "You can't list players in your channel if you are not a player yourself!");
 				return false;
 			}
 		} else if(cmd.getName().equals("cspy")){
@@ -100,10 +100,10 @@ public class MiscCommandExecutor extends ChatChannelCommandExecutor implements C
 				boolean isSpying = plugin.spyMap.get(UUID);
 				plugin.spyMap.put(UUID, !isSpying);
 				String spyModeStatus = !isSpying ? "on" : "off";
-				sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "You have turned spy mode " + ChatColor.valueOf(primaryChannelSwitch) + spyModeStatus + ".");
+				sender.sendMessage(secondary + "You have turned spy mode " + primary + spyModeStatus + ".");
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You already have /cspy, Console user!");
+				sender.sendMessage(error + "You already have /cspy, Console user!");
 				return false;
 			}
 		} else if(cmd.getName().equals("cmute")){
@@ -118,22 +118,22 @@ public class MiscCommandExecutor extends ChatChannelCommandExecutor implements C
 					pName = "Error";
 				}
 				if(pName.equals("Error")){
-					sender.sendMessage(ChatColor.valueOf(errorColor) + "You must specify a valid player!");
+					sender.sendMessage(error + "You must specify a valid player!");
 					return false;
 				}
 				String UUID = getUUIDByName(args[0]);
 				boolean isMuted = plugin.muteMap.get(UUID);
 				plugin.muteMap.put(UUID, !isMuted);
 				String muteStatus = !isMuted ? "muted" : "unmuted";
-				sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "You have " + ChatColor.valueOf(primaryChannelSwitch) + muteStatus  + " " + args[0] + ".");
+				sender.sendMessage(secondary + "You have " + primary + muteStatus  + " " + args[0] + ".");
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You need to specify a player!");
+				sender.sendMessage(error + "You need to specify a player!");
 				return false;
 			}
 		} else if(cmd.getName().equals("crealname")){
 			if(args.length < 1){
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You need to specify a player!");
+				sender.sendMessage(error + "You need to specify a player!");
 				return false;
 			}
 			for(Player p : Bukkit.getServer().getOnlinePlayers()){
@@ -149,21 +149,21 @@ public class MiscCommandExecutor extends ChatChannelCommandExecutor implements C
 					plainNick = sb.toString();
 				}
 				if(plainNick.equalsIgnoreCase(args[0])){
-					sender.sendMessage(ChatColor.valueOf(primaryChannelSwitch) + p.getName() + ChatColor.valueOf(secondaryChannelSwitch) + " has the nickname: " + getNickname().getString(p.getUniqueId().toString()));
+					sender.sendMessage(primary + p.getName() + secondary + " has the nickname: " + getNickname().getString(p.getUniqueId().toString()));
 					return true;
 				}
 			}
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "That player is not on or that is not a real nickname.");
+			sender.sendMessage(error + "That player is not on or that is not a real nickname.");
 		} else if(cmd.getName().equals("cignore")){
-			if(args.length < 1) sender.sendMessage(ChatColor.valueOf(errorColor) + "You need to specify who you want to ignore!");
-			else if(!(sender instanceof Player)) sender.sendMessage(ChatColor.valueOf(errorColor) + "You need to be a player to ignore someone!");
+			if(args.length < 1) sender.sendMessage(error + "You need to specify who you want to ignore!");
+			else if(!(sender instanceof Player)) sender.sendMessage(error + "You need to be a player to ignore someone!");
 			else {
 				String[] ignoreList;
 				if(!plugin.ignoreMap.containsKey(getUUIDByName(sender.getName()))) {
 					ignoreList = new String[1];
 					ignoreList[0] = getUUIDByName(args[0]);
 					plugin.ignoreMap.put(getUUIDByName(sender.getName()), ignoreList);
-					sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "You have ignored " + ChatColor.valueOf(primaryChannelSwitch) + args[0]);
+					sender.sendMessage(secondary + "You have ignored " + primary + args[0]);
 					return true;
 				}
 				else{
@@ -176,27 +176,27 @@ public class MiscCommandExecutor extends ChatChannelCommandExecutor implements C
 							ignoreList[i] = ignoreList[ignoreList.length - 1];
 							ignoreList[ignoreList.length - 1] = null;
 							plugin.ignoreMap.put(getUUIDByName(sender.getName()), ignoreList);
-							sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "You have unignored " + ChatColor.valueOf(primaryChannelSwitch) + args[0]);
+							sender.sendMessage(secondary + "You have unignored " + primary + args[0]);
 							//garbage collection :D
 							if(ignoreList[0] == null) plugin.ignoreMap.remove(getUUIDByName(sender.getName()));
 							return true;
 						} 
 					} 
 					ignoreList[ignoreList.length] = getUUIDByName(args[0]);
-					sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "You have ignored " + ChatColor.valueOf(primaryChannelSwitch) + args[0]);
+					sender.sendMessage(secondary + "You have ignored " + primary + args[0]);
 				}
 				plugin.ignoreMap.put(getUUIDByName(sender.getName()), ignoreList);
 				return true;
 			}
 		} else if(cmd.getName().equals("cowner")) {
 			if(!(sender instanceof Player)) {
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You are not a player in a channel!");
+				sender.sendMessage(error + "You are not a player in a channel!");
 				return true;
 			}
 			String currentChannel = getCurrentChannel().getString(((Player) sender).getUniqueId().toString());
 			String owner = getConfig().getString("cowner." + currentChannel);
 			owner = (owner.equals("no_owner")) ? owner : (Bukkit.getPlayer(UUID.fromString(owner)).getName());
-			sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "The owner of this channel is " + ChatColor.valueOf(primaryChannelSwitch) + owner + ".");
+			sender.sendMessage(secondary + "The owner of this channel is " + primary + owner + ".");
 			return true;
 		} else if(cmd.getName().equals("crestore")) {
 			if(args.length > 0) {
@@ -204,11 +204,11 @@ public class MiscCommandExecutor extends ChatChannelCommandExecutor implements C
 				s.add(args[0].toLowerCase());
 				getConfig().set("channels", s);
 				saveConfig();
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "Warning: if the inputted channel did not exist or has been purged, it will be listed in /clist and /csearch, and it will cause issues when a player tries to switch to it. Use /cdel <channel> to undo this.");
-				sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "The channel has been restored.");
+				sender.sendMessage(error + "Warning: if the inputted channel did not exist or has been purged, it will be listed in /clist and /csearch, and it will cause issues when a player tries to switch to it. Use /cdel <channel> to undo this.");
+				sender.sendMessage(secondary + "The channel has been restored.");
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You must input a channel in order to restore it!");
+				sender.sendMessage(error + "You must input a channel in order to restore it!");
 				return true;
 			}
 		} else if(cmd.getName().equals("cpurge")) {
@@ -216,11 +216,11 @@ public class MiscCommandExecutor extends ChatChannelCommandExecutor implements C
 				String purgeChannel = args[0].toLowerCase();
 				List<String> s = getConfig().getStringList("channels");
 				if(purgeChannel.equals(getConfig().getString("default_channel"))) {
-					sender.sendMessage(ChatColor.valueOf(errorColor) + "You can't delete the default channel!");
+					sender.sendMessage(error + "You can't delete the default channel!");
 					return true;
 				}
 				if(s.contains(purgeChannel)) {
-					sender.sendMessage(ChatColor.valueOf(errorColor) + "This channel has not been deleted with /cdel yet! It has been done for you: type /cpurge <channel> to purge the channel or /crestore <channel> to undo it.");
+					sender.sendMessage(error + "This channel has not been deleted with /cdel yet! It has been done for you: type /cpurge <channel> to purge the channel or /crestore <channel> to undo it.");
 					s.remove(purgeChannel);
 					getConfig().set("channels", s);
 					saveConfig();
@@ -233,22 +233,80 @@ public class MiscCommandExecutor extends ChatChannelCommandExecutor implements C
 				getConfig().set("cban." + purgeChannel, null);
 				getConfig().set("cflags." + purgeChannel, null);
 				saveConfig();
-				sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "The channel has been purged.");
+				sender.sendMessage(secondary + "The channel has been purged.");
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You must input a channel in order to purge it!");
+				sender.sendMessage(error + "You must input a channel in order to purge it!");
 				return true;
 			}
 		} else if (cmd.getName().equals("creload")) {
 			plugin.reloadConfig();
 			plugin.reloadNickname();
 			plugin.reloadCurrentChannel();
-			primaryChannelSwitch = getConfig().getString("colors.PrimaryChannelSwitch");
-			secondaryChannelSwitch = getConfig().getString("colors.SecondaryChannelSwitch");
-			errorColor = this.getConfig().getString("colors.error");
+			primary = ChatColor.valueOf(getConfig().getString("colors.PrimaryChannelSwitch"));
+			secondary = ChatColor.valueOf(getConfig().getString("colors.SecondaryChannelSwitch"));
+			error = ChatColor.valueOf(this.getConfig().getString("colors.error"));
 			nickMaxLength = getConfig().getInt("nick-max-length");
-			sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "ChatChannels has been reloaded!");
+			sender.sendMessage(secondary + "ChatChannels has been reloaded!");
 			return true;
+		} else if(cmd.getName().equalsIgnoreCase("cmsg")){
+			String senderUUID = getUUIDByName(sender.getName());
+			String senderName = "";
+			Player player;
+			
+			try {
+				player = Bukkit.getPlayer(UUID.fromString(getUUIDByName(args[0])));
+			} catch (IllegalArgumentException e) {
+				sender.sendMessage(error + "That isn't a player!");
+				return true;
+			}
+			
+			if(!(getNickname().getString(senderUUID) == null)){
+				String nickname = getNickname().getString(senderName);
+				senderName = nickname;
+			} else {
+				senderName = sender.getName();
+			}
+			if(args.length < 2){
+				sender.sendMessage(error + "You need to type a message!");
+				return false;
+			} else if(player == null) {
+				sender.sendMessage(error + "That isn't a player!");
+				return true;
+			} else {
+				StringBuilder sb = new StringBuilder();
+				for(int i = 1; i < args.length; i++){
+					sb.append(args[i] + " ");
+				}
+				String message = sb.toString();
+				boolean isIgnored = false;
+				if(plugin.ignoreMap.containsKey(senderUUID)){
+					String[] ignoreList = plugin.ignoreMap.get(((Player) player).getUniqueId().toString());
+					for(String s : ignoreList){
+						if(s.equals(getUUIDByName(sender.getName()))){
+							isIgnored = true;
+						}
+					}
+				}
+				
+				if(!isIgnored) {
+					String playerName = "";
+					if(!(getNickname().getString(player.getUniqueId().toString()) == null)){
+						String nickname = getNickname().getString(senderName);
+						playerName = nickname;
+					} else {
+						playerName = sender.getName();
+					}
+					if(sender.hasPermission("chatchannels.message.color")) {
+						player.sendMessage(ChatColor.translateAlternateColorCodes('&', senderName) + secondary + " to " + primary + "you: " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', message));
+						sender.sendMessage(primary + "You " + secondary + "to " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', playerName) + ChatColor.WHITE + ": " + ChatColor.translateAlternateColorCodes('&', message));
+					} else {
+						player.sendMessage(ChatColor.translateAlternateColorCodes('&', senderName) + secondary + " to " + primary + "you: " + message);
+						sender.sendMessage(primary + "You" + secondary + " to " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', playerName) + ChatColor.WHITE + ": " + message);
+					}
+				}
+				return true;
+			}
 		}
 		return false;
 	}

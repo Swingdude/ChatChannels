@@ -113,3 +113,8 @@ commands:
     permission: chatchannels.invite
     permission-message: You can't invite people!
     usage: /cinvite <player>
+  cmsg:
+    description: Messages a player privately.
+    permission: chatchannels.pm
+    permission-message: You can't private-message people!
+    usage: /cmsg <player> <message>

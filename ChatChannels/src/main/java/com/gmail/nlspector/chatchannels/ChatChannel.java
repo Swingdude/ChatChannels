@@ -34,9 +34,9 @@ import net.milkbowl.vault.chat.Chat;
 
 public class ChatChannel extends JavaPlugin implements Listener {
 
-	String primaryChannelSwitch;
-	String secondaryChannelSwitch;
-	String errorColor;
+	ChatColor primary;
+	ChatColor secondary;
+	ChatColor error;
 	int i = 1;
 	int tuneMessage = 0;
 	int joinMessage = 1;
@@ -55,14 +55,13 @@ public class ChatChannel extends JavaPlugin implements Listener {
 		saveDefaultConfig();
 		getConfig();
 		getServer().getPluginManager().registerEvents(this, this);
-		primaryChannelSwitch = getConfig().getString("colors.PrimaryChannelSwitch");
-		secondaryChannelSwitch = getConfig().getString("colors.SecondaryChannelSwitch");
-		errorColor = this.getConfig().getString("colors.error");
+		primary = ChatColor.valueOf(getConfig().getString("colors.primary"));
+		secondary = ChatColor.valueOf(getConfig().getString("colors.secondary"));
+		error = ChatColor.valueOf(this.getConfig().getString("colors.error"));
 		nickMaxLength = getConfig().getInt("nick-max-length");
 		saveDefaultNickname();
 		saveDefaultCurrentChannel();
 		setupChat();
-		//TODO: Register CommandExecutors... this will be its own function
 		registerCommands();
 		boolean errorsExist = false;
 		//Notify the console user if the config is messed up.
@@ -87,20 +86,20 @@ public class ChatChannel extends JavaPlugin implements Listener {
     }
 	
 	public void registerCommands() {
-		this.getCommand("channel").setExecutor(new ChannelSwitchCommandExecutor(this, primaryChannelSwitch, secondaryChannelSwitch, errorColor, nickMaxLength));
-		this.getCommand("cnick").setExecutor(new NicknameCommandExecutor(this, primaryChannelSwitch, secondaryChannelSwitch, errorColor, nickMaxLength));
-		this.getCommand("cedit").setExecutor(new ChannelEditCommandExecutor(this, primaryChannelSwitch, secondaryChannelSwitch, errorColor, nickMaxLength));
-		this.getCommand("newchannel").setExecutor(new NewChannelCommandExecutor(this, primaryChannelSwitch, secondaryChannelSwitch, errorColor, nickMaxLength));
-		this.getCommand("cdel").setExecutor(new ChannelDeleteCommandExecutor(this, primaryChannelSwitch, secondaryChannelSwitch, errorColor, nickMaxLength));
-		ChannelBanCommandExecutor cbce = new ChannelBanCommandExecutor(this, primaryChannelSwitch, secondaryChannelSwitch, errorColor, nickMaxLength);
+		this.getCommand("channel").setExecutor(new ChannelSwitchCommandExecutor(this, primary, secondary, error, nickMaxLength));
+		this.getCommand("cnick").setExecutor(new NicknameCommandExecutor(this, primary, secondary, error, nickMaxLength));
+		this.getCommand("cedit").setExecutor(new ChannelEditCommandExecutor(this, primary, secondary, error, nickMaxLength));
+		this.getCommand("newchannel").setExecutor(new NewChannelCommandExecutor(this, primary, secondary, error, nickMaxLength));
+		this.getCommand("cdel").setExecutor(new ChannelDeleteCommandExecutor(this, primary, secondary, error, nickMaxLength));
+		ChannelBanCommandExecutor cbce = new ChannelBanCommandExecutor(this, primary, secondary, error, nickMaxLength);
 		this.getCommand("cban").setExecutor(cbce);
 		this.getCommand("cpardon").setExecutor(cbce);
-		this.getCommand("ctune").setExecutor(new ChannelTuneCommandExecutor(this, primaryChannelSwitch, secondaryChannelSwitch, errorColor, nickMaxLength));
-		this.getCommand("csearch").setExecutor(new ChannelSearchCommandExecutor(this, primaryChannelSwitch, secondaryChannelSwitch, errorColor, nickMaxLength));
-		this.getCommand("cinvite").setExecutor(new ChannelInviteCommandExecutor(this, primaryChannelSwitch, secondaryChannelSwitch, errorColor, nickMaxLength));
-		this.getCommand("ctrust").setExecutor(new ChannelTrustCommandExecutor(this, primaryChannelSwitch, secondaryChannelSwitch, errorColor, nickMaxLength));
-		String[] miscCommands = {"clist", "cg", "cmute", "crealname", "cignore", "cowner", "crestore", "creload", "cpurge", "cspy", "cplayers"};
-		MiscCommandExecutor mce = new MiscCommandExecutor(this, primaryChannelSwitch, secondaryChannelSwitch, errorColor, nickMaxLength);
+		this.getCommand("ctune").setExecutor(new ChannelTuneCommandExecutor(this, primary, secondary, error, nickMaxLength));
+		this.getCommand("csearch").setExecutor(new ChannelSearchCommandExecutor(this, primary, secondary, error, nickMaxLength));
+		this.getCommand("cinvite").setExecutor(new ChannelInviteCommandExecutor(this, primary, secondary, error, nickMaxLength));
+		this.getCommand("ctrust").setExecutor(new ChannelTrustCommandExecutor(this, primary, secondary, error, nickMaxLength));
+		String[] miscCommands = {"clist", "cg", "cmute", "crealname", "cignore", "cowner", "crestore", "creload", "cpurge", "cspy", "cplayers", "cmsg"};
+		MiscCommandExecutor mce = new MiscCommandExecutor(this, primary, secondary, error, nickMaxLength);
 		for(String command : miscCommands) {
 			this.getCommand(command).setExecutor(mce);
 		}
@@ -211,7 +210,7 @@ public class ChatChannel extends JavaPlugin implements Listener {
 		Player msgSender = event.getPlayer();
 		
 		if(muteMap.get(msgSender.getUniqueId().toString()) == true){
-			msgSender.sendMessage(ChatColor.valueOf(errorColor) + "You are muted!");
+			msgSender.sendMessage(error + "You are muted!");
 			event.setCancelled(true);
 			return;
 		}
@@ -299,7 +298,7 @@ public class ChatChannel extends JavaPlugin implements Listener {
 					}
 				}
 				if(senderCurrentChannel.equalsIgnoreCase("noChannel")){
-					msgSender.sendMessage(ChatColor.valueOf(errorColor) + "You aren't in a channel! Use /cg for global chat or choose a channel with /channel");
+					msgSender.sendMessage(error + "You aren't in a channel! Use /cg for global chat or choose a channel with /channel");
 				} else {
 					
 					if((playerCurrentChannel.equalsIgnoreCase(senderCurrentChannel) || getCurrentChannel().getStringList("ctuned." + senderCurrentChannel).contains(player.getUniqueId().toString())) && !isIgnored){

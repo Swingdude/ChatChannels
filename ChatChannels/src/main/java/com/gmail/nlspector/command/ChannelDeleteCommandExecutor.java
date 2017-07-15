@@ -13,7 +13,7 @@ import com.gmail.nlspector.chatchannels.ChatChannel;
 
 public class ChannelDeleteCommandExecutor extends ChatChannelCommandExecutor implements CommandExecutor{
 
-	public ChannelDeleteCommandExecutor(ChatChannel c, String pCS, String sCS, String eC, int nickMaxLen) {
+	public ChannelDeleteCommandExecutor(ChatChannel c, ChatColor pCS, ChatColor sCS, ChatColor eC, int nickMaxLen) {
 		super(c, pCS, sCS, eC, nickMaxLen);
 	}
 	
@@ -22,26 +22,26 @@ public class ChannelDeleteCommandExecutor extends ChatChannelCommandExecutor imp
 		//copy and paste mostly from ctrust
 		//handle miscreants
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "You are not a player in a channel!");
+			sender.sendMessage(error + "You are not a player in a channel!");
 			return true;
 		}
 		
 		String selchannel = args[0];
 		if(!(getConfig().getStringList("channels").contains(selchannel) && getConfig().getStringList("invite-only-channels").contains(selchannel))) {
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "That channel doesn't exist!");
+			sender.sendMessage(error + "That channel doesn't exist!");
 			return true;
 		}
 		//in English - if the owner of the current channel isn't the player sending the command nor has permission to override... 
 		if(!(getConfig().getString("cowner." + selchannel).equals(((Player) sender).getUniqueId().toString()) || sender.hasPermission("chatchannels.delete.override"))) {
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "You are not allowed to delete this channel!");
+			sender.sendMessage(error + "You are not allowed to delete this channel!");
 			return true;
 		}
 		if(selchannel.equals(getConfig().getString("default_channel"))) {
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "You can't delete the default channel!");
+			sender.sendMessage(error + "You can't delete the default channel!");
 			return true;
 		}
 		if(args.length == 0) {
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "You must specify which channel to delete!");
+			sender.sendMessage(error + "You must specify which channel to delete!");
 			return true;
 		}
 		
@@ -54,7 +54,7 @@ public class ChannelDeleteCommandExecutor extends ChatChannelCommandExecutor imp
 		for(Player player: Bukkit.getServer().getOnlinePlayers()){
 			String playerCurrentChannel = getCurrentChannel().getString(player.getUniqueId().toString());
 			if(playerCurrentChannel.equalsIgnoreCase(selchannel)){
-				player.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "The channel you were on was deleted! Moving you to: " + ChatColor.valueOf(primaryChannelSwitch) + defaultChannel);
+				player.sendMessage(secondary + "The channel you were on was deleted! Moving you to: " + primary + defaultChannel);
 				getCurrentChannel().set(player.getUniqueId().toString(), defaultChannel);
 				saveCurrentChannel();
 			}
@@ -68,13 +68,13 @@ public class ChannelDeleteCommandExecutor extends ChatChannelCommandExecutor imp
 				getConfig().set("cban." + selchannel, null);
 				getConfig().set("cflags." + selchannel, null);
 				saveConfig();
-				sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "You have purged the channel " + ChatColor.valueOf(primaryChannelSwitch) + args[0] + ".");
+				sender.sendMessage(secondary + "You have purged the channel " + primary + args[0] + ".");
 				return true;
 			} else if(args[1].equalsIgnoreCase("purge") && !sender.hasPermission("chatchannels.delete.purge")) {
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "You don't have permission to purge this channel.");
+				sender.sendMessage(error + "You don't have permission to purge this channel.");
 			}
 		}
-		sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "You have deleted the channel " + ChatColor.valueOf(primaryChannelSwitch) + args[0] + ".");
+		sender.sendMessage(secondary + "You have deleted the channel " + primary + args[0] + ".");
 		return true;
 	}
 

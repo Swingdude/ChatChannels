@@ -10,7 +10,7 @@ import com.gmail.nlspector.chatchannels.ChatChannel;
 
 public class NicknameCommandExecutor extends ChatChannelCommandExecutor implements CommandExecutor{
 
-	public NicknameCommandExecutor(ChatChannel c, String pCS, String sCS, String eC, int nickMaxLen) {
+	public NicknameCommandExecutor(ChatChannel c, ChatColor pCS, ChatColor sCS, ChatColor eC, int nickMaxLen) {
 		super(c, pCS, sCS, eC, nickMaxLen);
 	}
 	
@@ -54,22 +54,22 @@ public class NicknameCommandExecutor extends ChatChannelCommandExecutor implemen
 			UUIDsb.delete(0, UUIDsb.length());
 		}
 		if(args.length < 1){
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "No nickname defined!");
+			sender.sendMessage(error + "No nickname defined!");
 			return false;
 		} else if(!(sender instanceof Player) && args.length < 2){
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "You can only set your nickname as a player!");
+			sender.sendMessage(error + "You can only set your nickname as a player!");
 			return true;
 		} else if(nicknameExists){
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "That nickname exists!");
+			sender.sendMessage(error + "That nickname exists!");
 			return true;
 		} else if(pNick.length() > nickMaxLength){
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "That nickname is too long!");
+			sender.sendMessage(error + "That nickname is too long!");
 			return true;
 		} else if(!(sender instanceof Player) && args.length == 2){ 
 			
 			String cmdSenderName = getUUIDByName(args[1]);
 			String nick = (args[0].equals("off")) ? args[1] : ("~" + args[0]);
-			sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + args[1] + "'s nickname is now " + ChatColor.translateAlternateColorCodes('&', nick) + ".");
+			sender.sendMessage(secondary + args[1] + "'s nickname is now " + ChatColor.translateAlternateColorCodes('&', nick) + ".");
 			getNickname().set(cmdSenderName, nick);
 			saveNickname();
 			return true;
@@ -79,9 +79,9 @@ public class NicknameCommandExecutor extends ChatChannelCommandExecutor implemen
 			String nick = (args[0].equals("off")) ? sender.getName() : ("~" + args[0]);
 			if(args.length == 2 && sender.hasPermission("chatchannels.nick.other")){
 				cmdSenderName = getUUIDByName(args[1]);
-				sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + args[1] + "'s nickname is now " + ChatColor.translateAlternateColorCodes('&', nick) + ".");
+				sender.sendMessage(secondary + args[1] + "'s nickname is now " + ChatColor.translateAlternateColorCodes('&', nick) + ".");
 			} else {
-				sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch) + "Your nickname is now " + ChatColor.translateAlternateColorCodes('&', nick) + ".");
+				sender.sendMessage(secondary + "Your nickname is now " + ChatColor.translateAlternateColorCodes('&', nick) + ".");
 			}
 			getNickname().set(cmdSenderName, nick);
 			saveNickname();

@@ -1,14 +1,11 @@
 colors:
-  PrimaryChannelSwitch: YELLOW
-  SecondaryChannelSwitch: AQUA
+  primary: YELLOW
+  secondary: AQUA
   error: RED
 local_chat_range: 250
 default_channel: red
-#Oh, come on, it's just a prefix!
 give_CCDev_prefix: true
-#This length excludes formatting. The nickname "&lNick" would return 4, not 6.
 nick-max-length: 15
-#This part is automatically edited by the in-game commands. Modify at your own risk.
 channels:
 - blue
 - red

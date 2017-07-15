@@ -10,7 +10,7 @@ import com.gmail.nlspector.chatchannels.ChatChannel;
 
 public class ChannelSwitchCommandExecutor extends ChatChannelCommandExecutor implements CommandExecutor {
 
-	public ChannelSwitchCommandExecutor(ChatChannel c, String pCS, String sCS, String eC, int nickMaxLen) {
+	public ChannelSwitchCommandExecutor(ChatChannel c, ChatColor pCS, ChatColor sCS, ChatColor eC, int nickMaxLen) {
 		super(c, pCS, sCS, eC, nickMaxLen);
 	}
 
@@ -19,11 +19,11 @@ public class ChannelSwitchCommandExecutor extends ChatChannelCommandExecutor imp
 		if(sender instanceof Player){
 			if(!(args.length == 0)){
 				String selectedChannel = args[0].toLowerCase();
-				String selChannelColor = primaryChannelSwitch;
+				String selChannelColor = primary.toString();
 					if(getConfig().getStringList("channels").contains(selectedChannel) || getConfig().getStringList("invite-only-channels").contains(selectedChannel)){
 						String switchedPlayer = ((Player) sender).getUniqueId().toString();
 						if(getConfig().getStringList("cban." + selectedChannel).contains(switchedPlayer)) {
-							sender.sendMessage(ChatColor.valueOf(errorColor) + "You have been banned from this channel!");
+							sender.sendMessage(error + "You have been banned from this channel!");
 							return true;
 						}
 						if(getConfig().getString("channelcolor." + selectedChannel) != null){
@@ -32,7 +32,7 @@ public class ChannelSwitchCommandExecutor extends ChatChannelCommandExecutor imp
 						boolean noPasscode = getConfig().getString("passcodes." + selectedChannel).equals("n/a") || getConfig().getString("passcodes." + selectedChannel).equals("default") || getConfig().getString("passcodes." + selectedChannel).equals("none");
 						if(noPasscode && !getConfig().getStringList("invite-only-channels").contains(selectedChannel)){
 							sendEntryExitMessages(sender, cmd, label, args, leaveMessage, getCurrentChannel().getString(switchedPlayer));
-							sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch)  + "You have been switched to the " + ChatColor.valueOf(selChannelColor) + selectedChannel + ChatColor.valueOf(secondaryChannelSwitch) + " channel!");
+							sender.sendMessage(secondary  + "You have been switched to the " + ChatColor.valueOf(selChannelColor) + selectedChannel + secondary + " channel!");
 							getCurrentChannel().set(switchedPlayer, selectedChannel);
 							saveCurrentChannel();
 							sendEntryExitMessages(sender, cmd, label, args, joinMessage, selectedChannel);
@@ -40,41 +40,41 @@ public class ChannelSwitchCommandExecutor extends ChatChannelCommandExecutor imp
 						} else if(getConfig().getStringList("invite-only-channels").contains(selectedChannel)){
 							if(getConfig().getStringList("invitees." + selectedChannel).contains(switchedPlayer) || sender.hasPermission("chatchannels.invite.override")) {
 								sendEntryExitMessages(sender, cmd, label, args, leaveMessage, getCurrentChannel().getString(switchedPlayer));
-								sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch)  + "You have been switched to the " + ChatColor.valueOf(selChannelColor) + selectedChannel + ChatColor.valueOf(secondaryChannelSwitch) + " channel!");
+								sender.sendMessage(secondary  + "You have been switched to the " + ChatColor.valueOf(selChannelColor) + selectedChannel + secondary + " channel!");
 								getCurrentChannel().set(switchedPlayer, selectedChannel);
 								saveCurrentChannel();
 								sendEntryExitMessages(sender, cmd, label, args, joinMessage, selectedChannel);
 								return true;
 							} else {
-								sender.sendMessage(ChatColor.valueOf(errorColor) + "That channel doesn't exist!");
+								sender.sendMessage(error + "That channel doesn't exist!");
 								return true;
 							}
 						} else {
 							if(args.length < 2){
-								sender.sendMessage(ChatColor.valueOf(errorColor) + "There is a password to this channel. Use /channel <channel> <password> to use it!");
+								sender.sendMessage(error + "There is a password to this channel. Use /channel <channel> <password> to use it!");
 								return false;
 							}
 							if(args[1].equals(getConfig().getString("passcodes." + selectedChannel))){
 								sendEntryExitMessages(sender, cmd, label, args, leaveMessage, getCurrentChannel().getString(switchedPlayer));
-								sender.sendMessage(ChatColor.valueOf(secondaryChannelSwitch)  + "You have been switched to the " + ChatColor.valueOf(selChannelColor) + selectedChannel + ChatColor.valueOf(secondaryChannelSwitch) + " channel!");
+								sender.sendMessage(secondary  + "You have been switched to the " + ChatColor.valueOf(selChannelColor) + selectedChannel + secondary + " channel!");
 								getCurrentChannel().set(switchedPlayer, selectedChannel);
 								saveCurrentChannel();
 								sendEntryExitMessages(sender, cmd, label, args, joinMessage, selectedChannel);
 								return true;
 							} else {
-								sender.sendMessage(ChatColor.valueOf(errorColor) + "The password was incorrect.");
+								sender.sendMessage(error + "The password was incorrect.");
 								return true;
 							}
 						}	
 					}
-				sender.sendMessage(ChatColor.valueOf(errorColor) + "That channel doesn't exist!");
+				sender.sendMessage(error + "That channel doesn't exist!");
 				return true;
 			} else {
 				sender.sendMessage("You must specify a channel!");
 				return false;
 			}
 		} else {
-			sender.sendMessage(ChatColor.valueOf(errorColor) + "You aren't a player!");
+			sender.sendMessage(error + "You aren't a player!");
 			return false;
 		}
 	}

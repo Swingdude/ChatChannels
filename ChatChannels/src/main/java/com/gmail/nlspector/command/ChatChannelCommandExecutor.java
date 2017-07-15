@@ -14,9 +14,9 @@ import com.gmail.nlspector.chatchannels.ChatChannel;
 
 public class ChatChannelCommandExecutor {
 	//This class is just an archetype for all command executors
-	String errorColor;
-	String secondaryChannelSwitch;
-	String primaryChannelSwitch;
+	ChatColor error;
+	ChatColor secondary;
+	ChatColor primary;
 	ChatChannel plugin;
 	int nickMaxLength;
 	int tuneMessage = 0;
@@ -24,10 +24,10 @@ public class ChatChannelCommandExecutor {
 	int leaveMessage = 2;
 	int untuneMessage = 3;
 	
-	public ChatChannelCommandExecutor(ChatChannel c, String pCS, String sCS, String eC, int nickMaxLen) {
-		primaryChannelSwitch = pCS;
-		secondaryChannelSwitch = sCS;
-		errorColor = eC;
+	public ChatChannelCommandExecutor(ChatChannel c, ChatColor pCS, ChatColor sCS, ChatColor eC, int nickMaxLen) {
+		primary = pCS;
+		secondary = sCS;
+		error = eC;
 		plugin = c;
 		nickMaxLength = nickMaxLen;
 	}
@@ -94,26 +94,26 @@ public class ChatChannelCommandExecutor {
 						String playerID = player.getUniqueId().toString();
 						String playerCurrentChannel = getCurrentChannel().getString(playerID);
 						if((playerCurrentChannel.equalsIgnoreCase(channel) || getCurrentChannel().getStringList("ctuned." + channel).contains(player.getUniqueId().toString()))){
-							player.sendMessage(ChatColor.valueOf(primaryChannelSwitch) + ChatColor.translateAlternateColorCodes('&', senderName) + ChatColor.valueOf(secondaryChannelSwitch) + " has tuned " + (isLeaving ? "out of" : "into") + " the channel.");
+							player.sendMessage(primary + ChatColor.translateAlternateColorCodes('&', senderName) + secondary + " has tuned " + (isLeaving ? "out of" : "into") + " the channel.");
 						} 
 					}
 					return;	
 				} else if(getConfig().getString("cflags." + channel + ".tune-messages").equals("owner-only")){
 					Player owner = Bukkit.getServer().getPlayer(UUID.fromString(getConfig().getString("cowner." + channel)));
 					if(owner != null) {
-						owner.sendMessage(ChatColor.valueOf(primaryChannelSwitch) + ChatColor.translateAlternateColorCodes('&', senderName) + ChatColor.valueOf(secondaryChannelSwitch) + " has tuned " + (isLeaving ? "out of" : "into") + " the channel.");
+						owner.sendMessage(primary + ChatColor.translateAlternateColorCodes('&', senderName) + secondary + " has tuned " + (isLeaving ? "out of" : "into") + " the channel.");
 					} else {
 						return;
 					}
 				} else if(getConfig().getString("cflags." + channel + ".tune-messages").equals("trusted-only")){
 					Player owner = Bukkit.getServer().getPlayer(UUID.fromString(getConfig().getString("cowner." + channel)));
 					if(owner != null) {
-						owner.sendMessage(ChatColor.valueOf(primaryChannelSwitch) + ChatColor.translateAlternateColorCodes('&', senderName) + ChatColor.valueOf(secondaryChannelSwitch) + " has tuned " + (isLeaving ? "out of" : "into") + " the channel.");
+						owner.sendMessage(primary + ChatColor.translateAlternateColorCodes('&', senderName) + secondary + " has tuned " + (isLeaving ? "out of" : "into") + " the channel.");
 					} 
 					for(String s : getConfig().getStringList("ctrusted." + channel)) {
 						Player trusted = Bukkit.getServer().getPlayer(UUID.fromString(s));
 						if(trusted != null) {
-							trusted.sendMessage(ChatColor.valueOf(primaryChannelSwitch) + ChatColor.translateAlternateColorCodes('&', senderName) + ChatColor.valueOf(secondaryChannelSwitch) + " has tuned " + (isLeaving ? "out of" : "into") + " the channel.");
+							trusted.sendMessage(primary + ChatColor.translateAlternateColorCodes('&', senderName) + secondary + " has tuned " + (isLeaving ? "out of" : "into") + " the channel.");
 						}
 					}
 					return;
@@ -132,26 +132,26 @@ public class ChatChannelCommandExecutor {
 						String playerID = player.getUniqueId().toString();
 						String playerCurrentChannel = getCurrentChannel().getString(playerID);
 						if((playerCurrentChannel.equalsIgnoreCase(channel) || getCurrentChannel().getStringList("ctuned." + channel).contains(player.getUniqueId().toString()))){
-							player.sendMessage(ChatColor.valueOf(primaryChannelSwitch) + ChatColor.translateAlternateColorCodes('&', senderName) + ChatColor.valueOf(secondaryChannelSwitch) + " has " + (isLeaving ? "left" : "joined") + " the channel.");
+							player.sendMessage(primary + ChatColor.translateAlternateColorCodes('&', senderName) + secondary + " has " + (isLeaving ? "left" : "joined") + " the channel.");
 						} 
 					}
 					return;	
 				} else if(getConfig().getString("cflags." + channel + ".join-messages").equals("owner-only")){
 					Player owner = Bukkit.getServer().getPlayer(UUID.fromString(getConfig().getString("cowner." + channel)));
 					if(owner != null) {
-						owner.sendMessage(ChatColor.valueOf(primaryChannelSwitch) + ChatColor.translateAlternateColorCodes('&', senderName) + ChatColor.valueOf(secondaryChannelSwitch) + " has " + (isLeaving ? "left" : "joined") + " the channel.");
+						owner.sendMessage(primary + ChatColor.translateAlternateColorCodes('&', senderName) + secondary + " has " + (isLeaving ? "left" : "joined") + " the channel.");
 					} else {
 						return;
 					}
 				} else if(getConfig().getString("cflags." + channel + ".join-messages").equals("trusted-only")){
 					Player owner = Bukkit.getServer().getPlayer(UUID.fromString(getConfig().getString("cowner." + channel)));
 					if(owner != null) {
-						owner.sendMessage(ChatColor.valueOf(primaryChannelSwitch) + ChatColor.translateAlternateColorCodes('&', senderName) + ChatColor.valueOf(secondaryChannelSwitch) + " has " + (isLeaving ? "left" : "joined") + " the channel.");
+						owner.sendMessage(primary + ChatColor.translateAlternateColorCodes('&', senderName) + secondary + " has " + (isLeaving ? "left" : "joined") + " the channel.");
 					} 
 					for(String s : getConfig().getStringList("ctrusted." + channel)) {
 						Player trusted = Bukkit.getServer().getPlayer(UUID.fromString(s));
 						if(trusted != null) {
-							trusted.sendMessage(ChatColor.valueOf(primaryChannelSwitch) + ChatColor.translateAlternateColorCodes('&', senderName) + ChatColor.valueOf(secondaryChannelSwitch) + " has " + (isLeaving ? "left" : "joined") + " the channel.");
+							trusted.sendMessage(primary + ChatColor.translateAlternateColorCodes('&', senderName) + secondary + " has " + (isLeaving ? "left" : "joined") + " the channel.");
 						}
 					}
 					return;
