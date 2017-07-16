@@ -118,3 +118,28 @@ commands:
     permission: chatchannels.pm
     permission-message: You can't private-message people!
     usage: /cmsg <player> <message>
+permissions:
+  chatchannels.basic:
+    description: Basic permission set.
+    default: true
+    children:
+      chatchannels.channels: true
+      chatchannels.pm: true
+      chatchannels.global: true
+      chatchannels.crealname: true
+      chatchannels.tune: true
+      chatchannels.ignore: true
+  chatchannels.channelcreate:
+    description: Channel creation permission set.
+    children:
+      chatchannels.create: true
+      chatchannels.edit: true
+      chatchannels.edit.passcode: true
+      chatchannels.edit.color: true
+      chatchannels.ban: true
+      chatchannels.delete: true
+      chatchannels.delete.purge: true
+      chatchannels.create.passcode: true
+      chatchannels.create.invite-only: true
+      chatchannels.invite: true
+      chatchannels.trust: true
