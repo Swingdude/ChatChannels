@@ -136,6 +136,7 @@ permissions:
       chatchannels.edit: true
       chatchannels.edit.passcode: true
       chatchannels.edit.color: true
+      chatchannels.edit.flags: true
       chatchannels.ban: true
       chatchannels.delete: true
       chatchannels.delete.purge: true
@@ -143,3 +144,25 @@ permissions:
       chatchannels.create.invite-only: true
       chatchannels.invite: true
       chatchannels.trust: true
+  chatchannels.admin:
+    description: Admin permission set.
+    children:
+      chatchannels.channelcreate: true
+      chatchannels.basic: true
+      chatchannels.reload: true
+      chatchannels.ban.override: true
+      chatchannels.edit.override: true
+      chatchannels.delete.override: true
+      chatchannels.trust.override: true
+      chatchannels.invite.override: true
+      chatchannels.purge: true
+      chatchannels.restore: true
+      chatchannels.search: true
+      chatchannels.listchannels: true
+      chatchannels.listplayers: true
+      chatchannels.checkowner: true
+      chatchannels.mute: true
+      chatchannels.spy: true
+      chatchannels.nick: true
+      chatchannels.nick.other: true
+      chatchannels.message.color: true

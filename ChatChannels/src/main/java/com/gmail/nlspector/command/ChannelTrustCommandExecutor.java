@@ -27,7 +27,7 @@ public class ChannelTrustCommandExecutor extends ChatChannelCommandExecutor impl
 		}
 		String currentChannel = getCurrentChannel().getString(((Player) sender).getUniqueId().toString());
 		//in English - if the owner of the current channel isn't the player sending the command... 
-		if(!getConfig().getString("cowner." + currentChannel).equals(((Player) sender).getUniqueId().toString())) {
+		if(!getConfig().getString("cowner." + currentChannel).equals(((Player) sender).getUniqueId().toString()) && !sender.hasPermission("chatchannels.trust.override")) {
 			sender.sendMessage(error + "You are not the owner of the channel!");
 			return true;
 		}

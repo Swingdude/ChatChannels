@@ -83,6 +83,9 @@ public class ChannelEditCommandExecutor extends ChatChannelCommandExecutor imple
 				sender.sendMessage(error + "You need to specify a flag and its value!");
 				sender.sendMessage(error + "/cedit <channel> flag <flag> <value>");
 				return true;
+			} 
+			if(!sender.hasPermission("chatchannels.edit.flags")) {
+				sender.sendMessage(error + "You don't have permission to edit the flags of a channel!");
 			}
 			String[] validFlags = {"join-messages", "tune-messages", "allow-tune"};
 			if(Arrays.asList(validFlags).contains(args[2].toLowerCase())) {
@@ -95,6 +98,9 @@ public class ChannelEditCommandExecutor extends ChatChannelCommandExecutor imple
 					saveConfig();
 					sender.sendMessage(secondary + "Success! The value of the flag " + primary + args[2] + secondary + " on " + primary + args[0] + secondary + " is now " + primary + args[3] + ".");
 				}
+			} else {
+				sender.sendMessage(error + "That isn't a valid flag! The valid values are: join-messages, tune-messages, allow-tune");
+				return true;
 			}
 		}
 		return true;
