@@ -225,6 +225,7 @@ public class ChatChannel extends JavaPlugin implements Listener {
 				prefix = "&6[&eCCDev&6]&f " + prefix;
 			}
 		}
+		//test line
 		String senderCurrentChannel = getCurrentChannel().getString(senderName);
 		String message = event.getMessage();
 		if(!(getNickname().getString(senderName) == null)){
